@@ -1,0 +1,33 @@
+<div class="form-area">
+  <h3 *ngIf="hero.nome !== null">Detalhes do {{hero.nome}}</h3>
+  <h3 *ngIf="hero.nome === null">Detalhes</h3>
+  <form>
+    <div class="input-group">
+      <label for="id">Id</label>
+      <input disabled type="number" name="id" id="id" [(ngModel)]="hero.id" >
+    </div>
+    <div class="input-group">
+      <label for="name">Nome</label>
+      <input type="text" name="name" id="name" [(ngModel)]="hero.nome" >
+    </div>
+    <div class="input-group">
+      <label for="phone">Telefone</label>
+      <input type="text" name="phone" id="phone" [(ngModel)]="hero.phone" >
+    </div>
+    <div class="btn-areas">
+      <button [class.btnBlock]="hero.id === null" (click)="deleteHero()" class="btn-deletar" type="button">Remover</button>
+      <button [class.btnBlock]="hero.nome === null" (click)="saveHero()" class="btn-salvar" type="button">Salvar</button>
+    </div>
+  </form>
+</div>
+<div class="list-area">
+  <h3>Herois</h3>
+  <table>
+    <thead>
+    <tr><th>Id</th><th class="td-nome">Nome</th><th>Telefone</th></tr>
+    </thead>
+    <tbody>
+    <tr (click)="onListClick(h)" *ngFor="let h of heroes"><td>{{h.id}}</td><td class="td-nome">{{h.nome}}</td><td>{{h.phone}}</td></tr>
+    </tbody>
+  </table>
+</div>

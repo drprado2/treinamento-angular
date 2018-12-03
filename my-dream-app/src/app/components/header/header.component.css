@@ -1,0 +1,13 @@
+header {
+  background-color: #333;
+  display: block;
+  height: 77px;
+  text-align: center;
+  color: #fff;
+}
+
+header h1{
+  display: inline-block;
+  font-weight: bold;
+  font-size: 2rem;
+}

@@ -1,0 +1,85 @@
+footer{
+  display: flex;
+  flex-direction: column;
+  background-color: #333;
+  color: #ffffff;
+  margin-top: 40px;
+}
+
+a, a:hover, a:active, a:focus, a:visited {
+  text-decoration: none;
+  color: inherit;
+  font-weight: inherit;
+}
+
+footer .content {
+  display: flex;
+  flex-direction: row;
+  padding: 24px 40px;
+}
+
+footer .content .contact {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-grow: 0.8;
+}
+
+footer .content .contact .image {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-size: 100% 100%;
+  background-position: center;
+  background-image: url("https://avatars2.githubusercontent.com/u/15847053?s=400&v=4");
+}
+
+footer .content .contact .infos {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+footer .content .contact .infos div:first-child {
+  margin-bottom: 5px;
+}
+
+footer .content .contact .infos div:last-child {
+  margin-top: 5px;
+}
+
+footer .content .links .links-title {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+footer .content .links ul {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+footer .content .links ul li {
+  font-size: 1rem;
+  margin-bottom: 5px;
+  margin-left: 3px;
+  cursor: pointer;
+}
+
+footer .content .links ul li:hover{
+  font-weight: bold;
+  transition: all .2s linear;
+}
+
+footer .copyRight{
+  height: 77px;
+  font-size: 0.8rem;
+  background-color: #555;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  font-weight: bold;
+}
