@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, AfterViewChecked, AfterViewInit, AfterContentInit, OnChanges} from '@angular/core';
 import swal from 'sweetalert2';
 import Chameleon from '../../../../chameleon/Chameleon';
 import {Hero} from '../../dtos/Hero';
@@ -7,18 +7,38 @@ import {HeroService} from "../../services/hero.service";
 @Component({
   selector: 'app-hero-detail',
   templateUrl: './hero-detail.component.html',
-  styleUrls: ['./hero-detail.component.scss'],
-  providers: [HeroService]
+  styleUrls: ['./hero-detail.component.scss']
 })
-export class HeroDetailComponent implements OnInit {
+export class HeroDetailComponent implements OnInit, OnChanges {
 
   @Input() hero: Hero;
   @Input() heroes: Hero[];
+  git: string;
 
-  constructor(private heroService : HeroService) { }
+  constructor(private heroService : HeroService) {
+
+  }
 
   ngOnInit() {
+    this.getGit();
+  }
+
+  async getGit() : Promise<any> {
+    let result = await this.heroService.getGit();
+    this.git = result.items[0].login;
+    console.log(this.git);
+  }
+
+  ngOnChanges(){
     Chameleon.init('#phone', '(99) 9999-9999', '(99) 99999-9999');
+    Chameleon.initOptions('#jobValue',
+      {
+        reverseInput: true,
+        masks: [
+          { mask: ".***,98", isMoney: true, moneyCountryMask: 'R$', placeholder: 'R$ 0,00' }
+        ]
+      });
+
   }
 
   saveHero() {

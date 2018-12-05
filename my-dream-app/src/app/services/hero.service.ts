@@ -23,4 +23,9 @@ export class HeroService {
   getHeroes() {
     return this.heroes;
   }
+
+  async getGit() : Promise<any> {
+    let result = await fetch('https://api.github.com/search/users?q=drprado2');
+    return result.json();
+  }
 }
