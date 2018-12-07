@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import {IndexPageComponent} from "./pages/index-page/index-page.component";
 
 @Component({
   selector: 'app-root',
@@ -22,6 +21,10 @@ export class AppComponent {
     if(!localStorage.getItem('jwt') && this.location.path() !== '/login')
     {
       this.location.go('/login');
+    }
+    if(localStorage.getItem('jwt') && this.location.path() === '/login')
+    {
+      this.location.go('/dashboard');
     }
   }
 }

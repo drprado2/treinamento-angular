@@ -1,0 +1,97 @@
+.tab-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+
+  .tabs-header {
+    display: flex;
+    min-height: 40px;
+    flex-grow: 1;
+    cursor: pointer;
+
+    .tab-header {
+      position: relative;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      color: #555555;
+      font-weight: bold;
+
+      &:before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        height: 1px;
+        width: 96%;
+        left: 2%;
+        background-color: #555555;
+        transition: all .23s linear;
+      }
+
+      &.active {
+        color: #333333;
+
+        &:before {
+          height: 2px;
+          background-color: #333333;
+          bottom: -0.5px;
+        }
+      }
+
+      &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 2%;
+        width: 96%;
+        height: 100%;
+        animation:  background-color-tab-out .23s;
+        animation-fill-mode: forwards;
+      }
+
+      &:hover {
+        color: #333333;
+
+        &:before {
+          height: 2px;
+          bottom: -0.5px;
+          background-color: #333333;
+          transition: all .23s linear;
+        }
+
+        &:after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 2%;
+          width: 96%;
+          height: 100%;
+          animation:  background-color-tab-in .23s;
+          animation-fill-mode: forwards;
+        }
+      }
+    }
+  }
+
+  .tab-content-area {
+
+  }
+}
+
+@keyframes background-color-tab-in {
+  0% {background-color: rgba(0,0,0,0)}
+  25% {background-color: rgba(0,0,0,.025)}
+  50% {background-color: rgba(0,0,0,0.050)}
+  75% {background-color: rgba(0,0,0,0.075)}
+  100% {background-color: rgba(0,0,0,0.1)}
+}
+
+@keyframes background-color-tab-out {
+  0% {background-color: rgba(0,0,0,0.1)}
+  25% {background-color: rgba(0,0,0,.075)}
+  50% {background-color: rgba(0,0,0,0.050)}
+  75% {background-color: rgba(0,0,0,0.025)}
+  100% {background-color: rgba(0,0,0,0)}
+}

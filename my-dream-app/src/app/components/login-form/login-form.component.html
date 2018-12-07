@@ -1,0 +1,68 @@
+<div class="login-container">
+  <div class="logo-area">
+    <span class="logo">Angular Study</span>
+  </div>
+  <app-tab-container>
+    <app-tab [isActive]="true" [tabName]="'Login'" >
+      <div class="form-area">
+        <h2 (mouseover)="onHover()">Sign in</h2>
+        <hr>
+        <form class="form-group" [formGroup]="signinForm" (ngSubmit)="signIn()" >
+          <div class="input-group">
+            <label for="usuario">Usuário</label>
+            <input formControlName="usuario" id="usuario" type="text">
+            <app-show-errors-input [formInput]="signinForm.controls.usuario" ></app-show-errors-input>
+          </div>
+          <div class="input-group">
+            <div class="senha-label">
+              <label for="senha">Senha</label>
+              <span>Esqueci minha senha</span>
+            </div>
+            <input formControlName="senha" id="senha" type="password">
+          </div>
+          <div class="input-group lembrar-me-area">
+            <label for="lembrar-me">Lembrar-me</label>
+            <input formControlName="lembrarMe" id="lembrar-me" type="checkbox">
+          </div>
+          <button  [disabled]="!signinForm.valid" class="btn-submit" type="submit">Sign In</button>
+        </form>
+      </div>
+    </app-tab>
+    <app-tab [tabName]="'Criar Conta'">
+      <div class="form-area">
+        <h2 (mouseover)="onHover2()">Sign up</h2>
+        <hr>
+        <form class="form-group" [formGroup]="signupForm" (ngSubmit)="signUp()" >
+          <div class="input-group">
+            <label for="c-usuario">Usuário</label>
+            <input formControlName="usuario" id="c-usuario" type="text">
+          </div>
+          <div class="input-group">
+            <label for="c-email">E-mail</label>
+            <input
+              formControlName="email"
+              id="c-email"
+              type="text"
+              [attr.disabled]="signupForm.controls.email.pending ? '' :  null"
+            >
+            <i [style.display]="signupForm.controls.email.pending ? 'inline-block' : 'none'" class="fas fa-spinner"></i>
+          </div>
+          <div class="input-group">
+            <label for="c-telefone">Telefone</label>
+            <input formControlName="telefone" appChameleonMask [mask]="'(99) 9999-9999'" name="c-telefone" id="c-telefone" type="tel">
+          </div>
+          <div class="input-group">
+            <label for="c-cpf">CPF</label>
+            <input formControlName="cpf" appChameleonMask [mask]="'999.999.999-99'" name="c-cpf" id="c-cpf" type="text">
+          </div>
+          <div class="input-group">
+            <label for="c-senha">Senha</label>
+            <input formControlName="senha" name="c-senha" id="c-senha" type="password">
+          </div>
+          <button [disabled]="!signupForm.valid" class="btn-submit" type="submit">Sign Up</button>
+        </form>
+      </div>
+    </app-tab>
+  </app-tab-container>
+</div>
+

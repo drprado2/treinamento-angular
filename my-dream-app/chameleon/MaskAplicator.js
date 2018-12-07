@@ -22,7 +22,6 @@ MaskAplicator.prototype.applyMoneyMask = function(mask, value){
   if(inputPureValue.length > 3 && value[0] === '0')
     value.value = value.substring(1);
 
-  console.log("vindo aplicar a mask money", inputPureValue, inputPureValue.length);
   switch(inputPureValue.length){
 
 
@@ -38,7 +37,6 @@ MaskAplicator.prototype.applyMoneyMask = function(mask, value){
       default:
           value = `${moneyCountryMask} ${value}`;
   }
-  console.log("valor ficou", value);
   return value;
 }
 MaskAplicator.prototype.cleanMoneyMask = function(mask, newValue){
@@ -81,7 +79,6 @@ MaskAplicator.prototype.applyValue = function(maskHandler, value, eventInputType
   if(!this.submitWithMask)
       this.originalInput.value = newValue.replace(this.regexInvalidChars, '');
   this.input.value = newValue.replace(regexExpressions.START_VALUE_NOT_NUMBER, '');
-  console.log('mudei valor pro money', this.input, this.input.value)
 }
 MaskAplicator.prototype.getInputStringParts = function(mask, eventInputType, newValue) {
   let stringParts = [];

@@ -1,0 +1,16 @@
+<div class="tab-container">
+  <div class="tabs-header">
+    <div
+      class="tab-header"
+      *ngFor="let tab of tabs"
+      (click)="onTabClick(tab)"
+      [style.width]="100 / tabs.length + '%'"
+      [class.active]="tab.isActive"
+    >
+      <span>{{tab.tabName}}</span>
+    </div>
+  </div>
+  <div class="tab-content-area">
+    <ng-container [ngTemplateOutlet]="template"></ng-container>
+  </div>
+</div>
