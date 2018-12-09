@@ -1,9 +1,14 @@
 .login-container {
   width: 350px;
-  margin: 0 auto;
+  margin: 40px auto;
   box-shadow: 0px 0px 7px 0px black;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
   border-radius: 5px;
+  background-color: rgba(255,255,255,0.7);
+  animation-name: login-in;
+  animation-fill-mode: forwards;
+  animation-duration: 1.9s;
+  animation-timing-function: cubic-bezier(0.64, 0.57, 0.67, 1.13);
 
   .logo-area {
     height: 74px;
@@ -27,14 +32,9 @@
 
     h2 {
       text-align: center;
-      margin-bottom: 10px;
-      color: #333333;
-    }
-
-    hr {
-      width: 90%;
-      margin: 0 auto;
       margin-bottom: 20px;
+      margin-top: 10px;
+      color: #333333;
     }
 
     .form-group {
@@ -50,7 +50,17 @@
 
         label {
           display: block;
-          color: #555555;
+          color: #555;
+          font-weight: bold;
+          margin-bottom: 3px;
+        }
+
+        input {
+          border: 1px solid #999999;
+          border-radius: 4px;
+          height: 28px;
+          padding-left: 5px;
+          padding-right: 5px;
         }
 
         .senha-label {
@@ -74,13 +84,6 @@
           }
         }
 
-        input {
-          border: 1px solid #999999;
-          border-radius: 2px;
-          height: 28px;
-          padding-left: 5px;
-        }
-
         &.lembrar-me-area {
           display: flex;
           flex-direction: row;
@@ -91,6 +94,7 @@
           }
         }
       }
+    }
 
       .btn-submit {
         height: 50px;
@@ -126,6 +130,18 @@
           }
         }
       }
-    }
   }
 }
+
+@keyframes login-in {
+  0% { transform: translate3d(0px, 75vh, 0px); }
+  100% { transform: translate3d(0px, 0px, 0px); }
+}
+
+.fa-spinner {
+  animation-name: spinner;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+

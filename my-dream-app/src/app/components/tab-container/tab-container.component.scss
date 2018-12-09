@@ -32,7 +32,6 @@
 
       &.active {
         color: #333333;
-
         &:before {
           height: 2px;
           background-color: #333333;
@@ -53,23 +52,11 @@
 
       &:hover {
         color: #333333;
-
         &:before {
           height: 2px;
           bottom: -0.5px;
           background-color: #333333;
           transition: all .23s linear;
-        }
-
-        &:after {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 2%;
-          width: 96%;
-          height: 100%;
-          animation:  background-color-tab-in .23s;
-          animation-fill-mode: forwards;
         }
       }
     }

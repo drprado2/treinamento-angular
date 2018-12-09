@@ -1,0 +1,54 @@
+@import "./../../../variables";
+
+:host ::ng-deep .input-validation-error input{
+  border-color: $error-color !important;
+  border-width: 2px !important;
+  background-image: url("./../../../assets/error-icon.png");
+  background-repeat: no-repeat;
+  background-size: 18px;
+  background-position: center right 5px;
+}
+
+:host ::ng-deep .input-validation-success input{
+  border-color: $success-color !important;
+  border-width: 2px !important;
+  background-image: url("./../../../assets/success-icon.png");
+  background-repeat: no-repeat;
+  background-size: 18px;
+  background-position: center right 5px;
+}
+
+:host ::ng-deep .is-pending input{
+  background-image: url("./../../../assets/loading.gif");
+  background-repeat: no-repeat;
+  background-size: 23px;
+  background-position: center right 5px;
+}
+
+:host ::ng-deep .input-validation-error label{
+  color: $error-color !important;
+}
+
+:host ::ng-deep .input-validation-success label{
+  color: $success-color !important;
+}
+
+:host ::ng-deep .is-required label:after{
+  content: "*";
+  display: inline;
+  position: relative;
+  color: $error-color;
+  font-weight: bold;
+}
+
+.input-validation, :host {
+  display: inherit;
+  flex-direction: inherit;
+  flex-grow: inherit;
+  align-items: inherit;
+  justify-content: inherit;
+  width: inherit;
+  height: inherit;
+}
+
+

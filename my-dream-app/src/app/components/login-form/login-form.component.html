@@ -3,22 +3,30 @@
     <span class="logo">Angular Study</span>
   </div>
   <app-tab-container>
-    <app-tab [isActive]="true" [tabName]="'Login'" >
+    <app-tab [isActive]="true" [tabName]="'Entrar'" >
       <div class="form-area">
-        <h2 (mouseover)="onHover()">Sign in</h2>
-        <hr>
+        <h2 (mouseover)="onHover()">Sign In </h2>
         <form class="form-group" [formGroup]="signinForm" (ngSubmit)="signIn()" >
           <div class="input-group">
-            <label for="usuario">Usuário</label>
-            <input formControlName="usuario" id="usuario" type="text">
-            <app-show-errors-input [formInput]="signinForm.controls.usuario" ></app-show-errors-input>
+            <app-input-validation
+              [myFormControl]="signinForm.controls.usuario"
+              [isRequired]="true"
+            >
+              <label for="usuario">Usuário</label>
+              <input formControlName="usuario" id="usuario" type="text">
+            </app-input-validation>
           </div>
           <div class="input-group">
-            <div class="senha-label">
-              <label for="senha">Senha</label>
-              <span>Esqueci minha senha</span>
-            </div>
-            <input formControlName="senha" id="senha" type="password">
+            <app-input-validation
+              [myFormControl]="signinForm.controls.senha"
+              [isRequired]="true"
+            >
+              <div class="senha-label">
+                <label for="senha">Senha</label>
+                <span>Esqueci minha senha</span>
+              </div>
+              <input formControlName="senha" id="senha" type="password">
+            </app-input-validation>
           </div>
           <div class="input-group lembrar-me-area">
             <label for="lembrar-me">Lembrar-me</label>
@@ -30,34 +38,58 @@
     </app-tab>
     <app-tab [tabName]="'Criar Conta'">
       <div class="form-area">
-        <h2 (mouseover)="onHover2()">Sign up</h2>
-        <hr>
+        <h2 (mouseover)="onHover2()">Sign Up</h2>
         <form class="form-group" [formGroup]="signupForm" (ngSubmit)="signUp()" >
           <div class="input-group">
-            <label for="c-usuario">Usuário</label>
-            <input formControlName="usuario" id="c-usuario" type="text">
-          </div>
-          <div class="input-group">
-            <label for="c-email">E-mail</label>
-            <input
-              formControlName="email"
-              id="c-email"
-              type="text"
-              [attr.disabled]="signupForm.controls.email.pending ? '' :  null"
+            <app-input-validation
+              [myFormControl]="signupForm.controls.usuario"
+              [isRequired]="true"
             >
-            <i [style.display]="signupForm.controls.email.pending ? 'inline-block' : 'none'" class="fas fa-spinner"></i>
+                <label for="c-usuario">Usuário</label>
+                <input formControlName="usuario" id="c-usuario" type="text">
+            </app-input-validation>
           </div>
           <div class="input-group">
-            <label for="c-telefone">Telefone</label>
-            <input formControlName="telefone" appChameleonMask [mask]="'(99) 9999-9999'" name="c-telefone" id="c-telefone" type="tel">
+            <app-input-validation
+              [myFormControl]="signupForm.controls.email"
+              [isRequired]="true"
+            >
+                <label for="c-email">E-mail</label>
+                <input
+                  formControlName="email"
+                  id="c-email"
+                  type="text"
+                  [attr.disabled]="signupForm.controls.email.pending ? '' :  null"
+                  [class.loading]="signupForm.controls.email.pending"
+                >
+            </app-input-validation>
           </div>
           <div class="input-group">
-            <label for="c-cpf">CPF</label>
-            <input formControlName="cpf" appChameleonMask [mask]="'999.999.999-99'" name="c-cpf" id="c-cpf" type="text">
+            <app-input-validation
+              [myFormControl]="signupForm.controls.telefone"
+              [isRequired]="true"
+            >
+                <label for="c-telefone">Telefone</label>
+                <input formControlName="telefone" appChameleonMask [mask]="'(99) 9999-9999'" name="c-telefone" id="c-telefone" type="tel">
+            </app-input-validation>
           </div>
           <div class="input-group">
-            <label for="c-senha">Senha</label>
-            <input formControlName="senha" name="c-senha" id="c-senha" type="password">
+            <app-input-validation
+              [myFormControl]="signupForm.controls.senha"
+              [isRequired]="true"
+            >
+                <label for="c-senha">Senha</label>
+                <input formControlName="senha" name="c-senha" id="c-senha" type="password">
+            </app-input-validation>
+          </div>
+          <div class="input-group">
+            <app-input-validation
+              [myFormControl]="signupForm.controls.repetirSenha"
+              [isRequired]="true"
+            >
+              <label for="c-repetir-senha">Repetir Senha</label>
+              <input formControlName="repetirSenha" name="c-repetir-senha" id="c-repetir-senha" type="password">
+            </app-input-validation>
           </div>
           <button [disabled]="!signupForm.valid" class="btn-submit" type="submit">Sign Up</button>
         </form>

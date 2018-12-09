@@ -1,0 +1,11 @@
+<div
+  class="input-validation"
+  [class.input-validation-error]="myFormControl.invalid && myFormControl.dirty"
+  [class.input-validation-success]="myFormControl.valid && myFormControl.dirty"
+  [class.is-required]="isRequired"
+  [class.is-pending]="myFormControl.pending"
+>
+  <ng-content></ng-content>
+  <app-show-errors-input [formInput]="myFormControl" ></app-show-errors-input>
+</div>
+

@@ -19,8 +19,9 @@ export class ShowErrorsInputComponent implements OnInit, AfterContentInit {
   }
 
   ngAfterContentInit(): void {
-    this.formInput.valueChanges.subscribe(this.refreshErrors);
-    this.refreshErrors();
+    // this.formInput.valueChanges.subscribe(this.refreshErrors);
+    this.formInput.statusChanges.subscribe(this.refreshErrors);
+    // this.formInput.validator.registerOnValidatorChange
   }
 
   refreshErrors = () => {
@@ -28,7 +29,7 @@ export class ShowErrorsInputComponent implements OnInit, AfterContentInit {
     this.errors = [];
     for(let error in this.formInput.errors){
       if(formErrors[error])
-        this.errors.push(formErrors[error]());
+        this.errors.push(formErrors[error](this.formInput.errors[error]));
       else if(this.formInput.errors[error].constructor === String)
         this.errors.push(this.formInput.errors[error]);
       else if(this.formInput.errors[error].constructor === Object && this.formInput.errors[error].message)

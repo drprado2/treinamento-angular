@@ -22,6 +22,8 @@ import { TabComponent } from './components/tab/tab.component';
 import { ChameleonDirective } from './chameleon.directive';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { ShowErrorsInputComponent } from './components/show-errors-input/show-errors-input.component';
+import { FullBackgroundVideoComponent } from './components/full-background-video/full-background-video.component';
+import { InputValidationComponent } from './components/input-validation/input-validation.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { ShowErrorsInputComponent } from './components/show-errors-input/show-er
     DashboardPageComponent,
     ChameleonDirective,
     LoginFormComponent,
-    ShowErrorsInputComponent
+    ShowErrorsInputComponent,
+    FullBackgroundVideoComponent,
+    InputValidationComponent
   ],
   imports: [
     BrowserModule,
