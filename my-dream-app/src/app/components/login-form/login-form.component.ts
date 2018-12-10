@@ -70,8 +70,11 @@ export class LoginFormComponent implements OnInit {
   signIn(){
     console.log(this.signinForm.value)
     console.log('saca', this.signinForm, this.signinForm)
-    this.usuarioService.signin(this.signinForm.value.usuario, this.signinForm.value.password)
-      .then(q => swal("Seja Bem Vindo", "VocÊ efetuou seu login com sucesso", 'success'))
+    this.usuarioService.signin(this.signinForm.value.usuario, this.signinForm.value.senha)
+      .catch(q => {
+        q.errors.forEach(e => this.signinForm.controls[e.field].setErrors({message: e.message}));
+        swal("Algo deu errado", q.genericError ? q.genericError : 'Verifique os campos marcados com erro', 'error');
+      });
   }
 
   signUp(){

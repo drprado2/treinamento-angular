@@ -8,5 +8,15 @@
   position: relative;
   box-sizing: border-box;
   overflow-x: hidden;
+  animation-name: login-page-in;
+  animation-fill-mode: forwards;
+  animation-duration: 1.9s;
+  animation-timing-function: cubic-bezier(0.64, 0.57, 0.67, 1.13);
+}
+
+@keyframes login-page-in {
+  0% { overflow: hidden; }
+  95% { overflow: hidden; }
+  100% { overflow: auto; }
 }
 

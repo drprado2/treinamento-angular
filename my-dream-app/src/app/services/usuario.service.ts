@@ -3,6 +3,7 @@ import {Usuario} from "../dtos/Usuario";
 import {guid} from "../utils/funcions";
 import {RequestError} from "../dtos/RequestError";
 import {LoaderService} from "./loader.service";
+import {Router} from "@angular/router";
 
 const defaultUsers : Usuario[] = [
   {id: guid(), email: 'adriano@gmail.com', password: '123A', telefone: '4499994236', user: 'adriano'},
@@ -23,7 +24,7 @@ export class UsuarioService {
 
   private users : Usuario[] = defaultUsers;
 
-  constructor(private loaderService: LoaderService) { }
+  constructor(private loaderService: LoaderService, private router: Router) { }
 
   get() : Promise<Usuario[] | RequestError> {
     this.loaderService.addLoading();
@@ -123,21 +124,33 @@ export class UsuarioService {
       });
   }
 
+  createJwtStorage(token: any) : void {
+    localStorage.setItem('jwt', token);
+  }
+
   signin(username: string, password: string) : Promise<string | RequestError> {
     this.loaderService.addLoading();
 
     let result: string | RequestError = "token-jwt";
+    let error = false;
     const user = this.users.find(u => u.user === username);
-    if(!user)
-      result = {errorCode: 400, genericError: null, errors: [{field: 'usuario', message: 'Username não cadastrado'}]};
+    if(!user){
+      result = {errorCode: 400, genericError: null, errors: [{field: 'usuario', message: 'Usuário não cadastrado'}]};
+      error = true;
+    }
     else {
-      if(user.password !== password)
+      if(user.password !== password){
         result = {errorCode: 400, genericError: null, errors: [{field: 'senha', message: 'Senha incorreta'}]};
+        error = true;
+      }
     }
 
-    return createPromise(result)
+
+    return createPromise(result, 4000, error)
       .then(d => {
         this.loaderService.removeLoading();
+        this.createJwtStorage(d);
+        this.router.navigate(['/dashboard']);
         return d;
       })
       .catch(e => {
