@@ -24,6 +24,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { ShowErrorsInputComponent } from './components/show-errors-input/show-errors-input.component';
 import { FullBackgroundVideoComponent } from './components/full-background-video/full-background-video.component';
 import { InputValidationComponent } from './components/input-validation/input-validation.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { InputValidationComponent } from './components/input-validation/input-va
     LoginFormComponent,
     ShowErrorsInputComponent,
     FullBackgroundVideoComponent,
-    InputValidationComponent
+    InputValidationComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -58,4 +60,4 @@ import { InputValidationComponent } from './components/input-validation/input-va
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators, ValidationErrors} from '@angular/forms';
+import {UsuarioService} from "../../services/usuario.service";
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login-form',
@@ -47,7 +49,7 @@ export class LoginFormComponent implements OnInit {
     ])
   });
 
-  constructor() { }
+  constructor(private usuarioService: UsuarioService) { }
 
   ngOnInit() {
   }
@@ -68,6 +70,8 @@ export class LoginFormComponent implements OnInit {
   signIn(){
     console.log(this.signinForm.value)
     console.log('saca', this.signinForm, this.signinForm)
+    this.usuarioService.signin(this.signinForm.value.usuario, this.signinForm.value.password)
+      .then(q => swal("Seja Bem Vindo", "VocÊ efetuou seu login com sucesso", 'success'))
   }
 
   signUp(){

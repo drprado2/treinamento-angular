@@ -1,0 +1,11 @@
+.loader-overlay {
+  background-color: rgba(255,255,255,0.5);
+  background-image: url("./../../../assets/spinner.gif");
+  background-repeat: no-repeat;
+  background-size: 150px;
+  background-position: center;
+  z-index: 1000;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
