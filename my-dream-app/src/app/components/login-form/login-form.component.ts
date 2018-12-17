@@ -28,7 +28,7 @@ export class LoginFormComponent implements OnInit {
           Validators.email,
         ],
         asyncValidators: [
-          this.checkEmailIsAvailable
+          this.checkEmailIsAvailable.bind(this)
         ],
         updateOn: "blur"
       }),
@@ -37,10 +37,7 @@ export class LoginFormComponent implements OnInit {
         Validators.required,
         Validators.minLength(14)
       ],
-      asyncValidators: [
-        this.checkTelefoneIsAvailable
-      ],
-      updateOn: "blur"
+      updateOn: "change"
     }),
     senha: new FormControl('', [Validators.required, this.checkForcaSenha]),
     repetirSenha: new FormControl('', [
@@ -54,22 +51,7 @@ export class LoginFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  onHover(){
-    console.log('Usuario erros', this.signinForm.controls.usuario.invalid, this.signinForm.controls.usuario.errors)
-    console.log('Todos erros', this.signinForm.controls)
-    // Adicionando erro manualmente
-    // this.signinForm.controls.usuario.setErrors({ ...this.signinForm.controls.usuario.errors, 'forced-error': {message: 'teste erro', value: true}})
-  }
-
-  onHover2(){
-    console.log('Email erros', this.signupForm.controls.email, this.signupForm.controls.email.invalid, this.signinForm.controls.usuario.errors)
-    console.log('CAMPO EMAIL PENDENTE', this.signupForm.controls)
-
-  }
-
   signIn(){
-    console.log(this.signinForm.value)
-    console.log('saca', this.signinForm, this.signinForm)
     this.usuarioService.signin(this.signinForm.value.usuario, this.signinForm.value.senha)
       .catch(q => {
         q.errors.forEach(e => this.signinForm.controls[e.field].setErrors({message: e.message}));
@@ -82,23 +64,9 @@ export class LoginFormComponent implements OnInit {
   }
 
   checkEmailIsAvailable(control) : Promise<ValidationErrors | null> {
-    console.log('chamou a func asinc')
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        console.log('RESOLVENDO FUNC')
-        resolve({message: 'Esse e-mail já está em uso'});
-        }, 4000);
-    })
-  }
-
-  checkTelefoneIsAvailable(control) : Promise<ValidationErrors | null> {
-    console.log('chamou a func asinc')
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        console.log('RESOLVENDO FUNC')
-        resolve(null);
-      }, 4000);
-    })
+    return this.usuarioService.isEmailAvailable(control.value)
+      .then(r => r ? null : {message: 'Esse e-mail já está em uso'})
+      .catch(q => ({message: 'Ocorreu um erro interno, tente novamente por favor'}));
   }
 
   checkForcaSenha(control) : ValidationErrors | null {

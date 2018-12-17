@@ -53,7 +53,7 @@ export class UsuarioService {
   }
 
   isEmailAvailable(email: string) : Promise<boolean | RequestError> {
-    return createPromise(!!this.users.find(u => u.email === email))
+    return createPromise(!this.users.find(u => u.email === email))
       .then(d => d)
       .catch(e => Promise.reject(e));
   }
@@ -128,7 +128,7 @@ export class UsuarioService {
     localStorage.setItem('jwt', token);
   }
 
-  signin(username: string, password: string) : Promise<string | RequestError> {
+  signin(username: string, password: string) : Promise<void | RequestError> {
     this.loaderService.addLoading();
 
     let result: string | RequestError = "token-jwt";
@@ -145,17 +145,43 @@ export class UsuarioService {
       }
     }
 
-
     return createPromise(result, 4000, error)
       .then(d => {
         this.loaderService.removeLoading();
         this.createJwtStorage(d);
         this.router.navigate(['/dashboard']);
-        return d;
       })
       .catch(e => {
         this.loaderService.removeLoading();
         return Promise.reject(e);
       });
+  }
+
+  signup(user: Usuario) : Promise<Usuario | RequestError> {
+    this.loaderService.addLoading();
+
+    let error = {errors: [], errorCode: 400, genericError: null};
+    this.users.forEach(u => {
+      if(u.telefone === user.telefone)
+        error = {...error, errors: error.errors.concat([{field: 'telefone', message: 'Telefone já está em uso'}])}
+      if(u.user === user.user)
+        error = {...error, errors: error.errors.concat([{field: 'user', message: 'Usuário já está em uso'}])}
+    });
+
+    if(error.errors.length > 0)
+        return createPromise(error, 4000, true)
+          .catch(e => {
+            this.loaderService.removeLoading();
+            return Promise.reject(e);
+          });
+
+    user.id = guid();
+    this.users.push(user);
+
+    return createPromise({...user}, 4000)
+      .then(d => {
+        this.loaderService.removeLoading();
+        return d;
+      })
   }
 }
