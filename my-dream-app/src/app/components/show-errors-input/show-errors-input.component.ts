@@ -19,13 +19,15 @@ export class ShowErrorsInputComponent implements OnInit, AfterContentInit {
   }
 
   ngAfterContentInit(): void {
-    // this.formInput.valueChanges.subscribe(this.refreshErrors);
     this.formInput.statusChanges.subscribe(this.refreshErrors);
-    // this.formInput.validator.registerOnValidatorChange
   }
 
   refreshErrors = () => {
-    console.log('vindo ver erros')
+    if(this.formInput.pristine){
+      this.errors = [];
+      return;
+    }
+
     this.errors = [];
     for(let error in this.formInput.errors){
       if(formErrors[error])

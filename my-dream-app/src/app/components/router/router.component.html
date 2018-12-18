@@ -1,0 +1,12 @@
+<router-outlet
+  *ngIf="!isAuthenticated"
+  (activate)='onActivate($event)'
+  ></router-outlet>
+
+<div *ngIf="isAuthenticated">
+  <h1>LOGADOO</h1>
+  <router-outlet
+    (activate)='onActivate($event)'
+    ></router-outlet>
+</div>
+

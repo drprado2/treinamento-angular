@@ -15,12 +15,10 @@ export class LoaderComponent implements OnInit, LoaderObserver {
   constructor(private loaderService: LoaderService) { }
 
   ngOnInit() {
-    console.log('INIT DO LOADER', this.loaderService)
     this.loaderService.addObserver(this);
   }
 
   update(isLoading: boolean) {
-    console.log('CHAMOU O UPDATE DO LOADERRR', isLoading)
     this.show = isLoading;
   }
 }

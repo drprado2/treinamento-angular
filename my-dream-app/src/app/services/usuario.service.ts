@@ -6,9 +6,9 @@ import {LoaderService} from "./loader.service";
 import {Router} from "@angular/router";
 
 const defaultUsers : Usuario[] = [
-  {id: guid(), email: 'adriano@gmail.com', password: '123A', telefone: '4499994236', user: 'adriano'},
-  {id: guid(), email: 'maria@gmail.com', password: '123A', telefone: '4499994237', user: 'maria'},
-  {id: guid(), email: 'renata@gmail.com', password: '123A', telefone: '4499994238', user: 'renata'},
+  {id: guid(), email: 'adriano@gmail.com', senha: '123A', telefone: '4499994236', usuario: 'adriano'},
+  {id: guid(), email: 'maria@gmail.com', senha: '123A', telefone: '4499994237', usuario: 'maria'},
+  {id: guid(), email: 'renata@gmail.com', senha: '123A', telefone: '4499994238', usuario: 'renata'},
 ]
 
 function createPromise<T>(data: T, timeout: number = 4000, forceError: boolean = false): Promise<T> {
@@ -17,14 +17,33 @@ function createPromise<T>(data: T, timeout: number = 4000, forceError: boolean =
   });
 }
 
+function createInitialData() {
+  const currentData = localStorage.getItem('users');
+  if(!currentData){
+    const stringData = JSON.stringify(defaultUsers);
+    localStorage.setItem('users', stringData);
+  }
+}
+
+function getCurrentUsers() : Usuario[] {
+  return JSON.parse(localStorage.getItem('users'));
+}
+
+function save(users: Usuario[]){
+  localStorage.setItem('users', JSON.stringify(users));
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
 
-  private users : Usuario[] = defaultUsers;
+  private users : Usuario[];
 
-  constructor(private loaderService: LoaderService, private router: Router) { }
+  constructor(private loaderService: LoaderService, private router: Router) {
+    createInitialData();
+    this.users = getCurrentUsers();
+  }
 
   get() : Promise<Usuario[] | RequestError> {
     this.loaderService.addLoading();
@@ -64,6 +83,7 @@ export class UsuarioService {
     let clone = {...usuario};
     clone.id = guid();
     this.users.push(clone);
+    save(this.users);
 
     return createPromise(clone)
       .then(d => {
@@ -85,11 +105,12 @@ export class UsuarioService {
       result = {errorCode: 400, genericError: 'Usuário não existe', errors: []};
 
     user.email = usuario.email;
-    user.user = usuario.user;
+    user.usuario = usuario.usuario;
     user.telefone = usuario.telefone;
-    user.password = usuario.password;
+    user.senha = usuario.senha;
+    save(this.users);
 
-    result = user;
+    result = {...user};
 
     return createPromise(result)
       .then(d => {
@@ -112,6 +133,7 @@ export class UsuarioService {
       result = {errorCode: 400, genericError: 'Usuário não existe', errors: []};
     else
         this.users = this.users.slice(0, userIndex).concat(this.users.slice(userIndex + 1));
+    save(this.users);
 
     return createPromise(result)
       .then(d => {
@@ -133,13 +155,13 @@ export class UsuarioService {
 
     let result: string | RequestError = "token-jwt";
     let error = false;
-    const user = this.users.find(u => u.user === username);
+    const user = this.users.find(u => u.usuario === username);
     if(!user){
       result = {errorCode: 400, genericError: null, errors: [{field: 'usuario', message: 'Usuário não cadastrado'}]};
       error = true;
     }
     else {
-      if(user.password !== password){
+      if(user.senha !== password){
         result = {errorCode: 400, genericError: null, errors: [{field: 'senha', message: 'Senha incorreta'}]};
         error = true;
       }
@@ -164,8 +186,8 @@ export class UsuarioService {
     this.users.forEach(u => {
       if(u.telefone === user.telefone)
         error = {...error, errors: error.errors.concat([{field: 'telefone', message: 'Telefone já está em uso'}])}
-      if(u.user === user.user)
-        error = {...error, errors: error.errors.concat([{field: 'user', message: 'Usuário já está em uso'}])}
+      if(u.usuario === user.usuario)
+        error = {...error, errors: error.errors.concat([{field: 'usuario', message: 'Usuário já está em uso'}])}
     });
 
     if(error.errors.length > 0)
@@ -177,6 +199,7 @@ export class UsuarioService {
 
     user.id = guid();
     this.users.push(user);
+    save(this.users);
 
     return createPromise({...user}, 4000)
       .then(d => {

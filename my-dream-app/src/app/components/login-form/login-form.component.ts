@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormGroup, FormControl, Validators, ValidationErrors} from '@angular/forms';
 import {UsuarioService} from "../../services/usuario.service";
 import swal from 'sweetalert2';
+import {TabContainerComponent} from "../tab-container/tab-container.component";
+import {ModalComponent} from "../modal/modal.component";
 
 @Component({
   selector: 'app-login-form',
@@ -35,7 +37,7 @@ export class LoginFormComponent implements OnInit {
     telefone: new FormControl('', {
       validators: [
         Validators.required,
-        Validators.minLength(14)
+        this.checkTelefone
       ],
       updateOn: "change"
     }),
@@ -46,6 +48,10 @@ export class LoginFormComponent implements OnInit {
     ])
   });
 
+  @ViewChild(TabContainerComponent) tabContainer: TabContainerComponent;
+
+  @ViewChild(ModalComponent) modalEsqueciMinhaSenha: ModalComponent;
+
   constructor(private usuarioService: UsuarioService) { }
 
   ngOnInit() {
@@ -55,12 +61,31 @@ export class LoginFormComponent implements OnInit {
     this.usuarioService.signin(this.signinForm.value.usuario, this.signinForm.value.senha)
       .catch(q => {
         q.errors.forEach(e => this.signinForm.controls[e.field].setErrors({message: e.message}));
-        swal("Algo deu errado", q.genericError ? q.genericError : 'Verifique os campos marcados com erro', 'error');
+        swal("Algo deu errado!", q.genericError ? q.genericError : 'Verifique os campos marcados com erro', 'error');
       });
   }
 
+  resetSignupForm() {
+    this.signupForm.clearValidators();
+    this.signupForm.clearAsyncValidators();
+    this.signupForm.markAsPristine();
+    this.signupForm.markAsUntouched();
+    this.signupForm.reset({usuario: '', email: '', telefone: '', senha: '', repetirSenha: ''}, {emitEvent: true});
+  }
+
   signUp(){
-    console.log(this.signupForm.value)
+    this.usuarioService.signup(this.signupForm.value)
+      .then(u => {
+        this.resetSignupForm();
+        this.tabContainer.setTabActive(0);
+        // @ts-ignore
+        this.signinForm.controls.usuario.setValue(u.usuario);
+        swal('Operação realizada com sucesso!', 'O seu usuário foi cadastrado com sucesso', 'success');
+      })
+      .catch(r => {
+        r.errors.forEach(e => this.signupForm.controls[e.field].setErrors({message: e.message}));
+        swal("Algo deu errado!", r.genericError ? r.genericError : 'Verifique os campos marcados com erro', 'error');
+      })
   }
 
   checkEmailIsAvailable(control) : Promise<ValidationErrors | null> {
@@ -80,7 +105,6 @@ export class LoginFormComponent implements OnInit {
   }
 
   checkSenhaIgual(control) : ValidationErrors | null {
-    console.log('vindo cehcar AAA', control, this)
     return !this.signupForm ||
       !this.signupForm.controls.senha.value ||
       this.signupForm.controls.senha.value === control.value
@@ -91,5 +115,13 @@ export class LoginFormComponent implements OnInit {
   isValidUserName(control) : ValidationErrors | null {
     const containsSpace = control.value.match(/[ ]/g);
     return containsSpace ? {message: 'O usuário não pode ter espaços'} : null;
+  }
+
+  checkTelefone(control) : ValidationErrors | null {
+    return control.value.length < 14 ? {message: 'Por favor preencha um telefone válido'} : null;
+  }
+
+  esqueciMinhaSenha() : void {
+    this.modalEsqueciMinhaSenha.open();
   }
 }

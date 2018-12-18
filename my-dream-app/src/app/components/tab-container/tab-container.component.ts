@@ -39,9 +39,18 @@ export class TabContainerComponent implements OnInit, AfterContentInit {
   }
 
   onTabClick(tab: TabComponent){
-    this.tabsComponent.forEach(t => t.isActive = false);
+    this.tabs.forEach(t => t.isActive = false);
     tab.isActive = true;
     this.template = tab.tabTemplate;
   }
 
+  resetTabs(){
+    this.setFirstTemplate();
+  }
+
+  setTabActive(index: number) {
+    this.tabs.forEach(t => t.isActive = false);
+    this.tabs[index].isActive = true;
+    this.template = this.tabs[index].tabTemplate;
+  }
 }

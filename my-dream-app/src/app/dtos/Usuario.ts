@@ -1,8 +1,8 @@
 export class Usuario {
   id: string | null;
-  user: string;
+  usuario: string;
   email: string;
   telefone: string;
-  password: string;
+  senha: string;
 }
 
