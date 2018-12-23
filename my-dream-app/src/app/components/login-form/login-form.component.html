@@ -1,5 +1,5 @@
+<app-loader></app-loader>
 <div class="login-container">
-  <app-loader></app-loader>
   <div class="logo-area">
     <span class="logo">Angular Study</span>
   </div>
@@ -24,7 +24,7 @@
             >
               <div class="senha-label">
                 <label for="senha">Senha</label>
-                <span (click)="esqueciMinhaSenha()">Esqueci minha senha</span>
+                <span (click)="openModalEsqueciMinhaSenha()">Esqueci minha senha</span>
               </div>
               <input formControlName="senha" id="senha" type="password">
             </app-input-validation>
@@ -98,4 +98,22 @@
     </app-tab>
   </app-tab-container>
 </div>
-<app-modal></app-modal>
+<app-modal
+  [modalSize]="modalSize.small"
+  [buttons]="botoesEsqueciMinhaSenha"
+  title="Esqueci Minha Senha"
+>
+  <div class="form-area">
+    <form class="form-group" [formGroup]="forgetPasswordForm" (ngSubmit)="signUp()">
+      <div class="input-group">
+        <app-input-validation
+          [myFormControl]="forgetPasswordForm.controls.email"
+          [isRequired]="true"
+        >
+          <label for="e-email">E-mail</label>
+          <input formControlName="email" id="e-email" type="text">
+        </app-input-validation>
+      </div>
+    </form>
+  </div>
+</app-modal>

@@ -23,6 +23,7 @@ export class ShowErrorsInputComponent implements OnInit, AfterContentInit {
   }
 
   refreshErrors = () => {
+    console.log('passando aq', this.formInput, this.errors)
     if(this.formInput.pristine){
       this.errors = [];
       return;

@@ -1,15 +1,14 @@
-<div *ngIf="isOpen" class="modal-overlay">
-  <div class="modal">
+<div *ngIf="isOpen" class="modal-overlay" (click)="overlayClick($event)">
+  <div [class]="'modal ' + modalSize">
     <h3 class="modal-header">
-      <span class="title">Título do meu modal</span>
+      <span class="title">{{title}}</span>
       <button (click)="close()" class="close-button reset-button-style"><i class="fas fa-times-circle"></i></button>
     </h3>
     <div class="modal-content">
-      Conteúdo do modal vai aqui
+      <ng-content></ng-content>
     </div>
     <div class="modal-footer">
-      <button class="button">Salvar</button>
-      <button class="button">Cancelar</button>
+      <button (click)="btn.callAction($event)" *ngFor="let btn of buttons" [class]="'button ' + btn.type">{{btn.label}}</button>
     </div>
   </div>
 </div>

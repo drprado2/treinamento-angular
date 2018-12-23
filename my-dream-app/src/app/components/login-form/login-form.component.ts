@@ -4,6 +4,9 @@ import {UsuarioService} from "../../services/usuario.service";
 import swal from 'sweetalert2';
 import {TabContainerComponent} from "../tab-container/tab-container.component";
 import {ModalComponent} from "../modal/modal.component";
+import {ButtonType} from "../modal/buttonType.enum";
+import {ModalButton} from "../modal/button.modal";
+import {ModalSize} from "../modal/modaSize.enum";
 
 @Component({
   selector: 'app-login-form',
@@ -48,9 +51,20 @@ export class LoginFormComponent implements OnInit {
     ])
   });
 
+  forgetPasswordForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email])
+  });
+
   @ViewChild(TabContainerComponent) tabContainer: TabContainerComponent;
 
   @ViewChild(ModalComponent) modalEsqueciMinhaSenha: ModalComponent;
+
+  botoesEsqueciMinhaSenha: ModalButton[] = [
+    {callAction: () => this.modalEsqueciMinhaSenha.close(), label: 'Cancelar', type: ButtonType.default},
+    {callAction: () => this.esqueciMinhaSenha(), label: 'Confirmar', type: ButtonType.primary},
+  ]
+
+  modalSize: ModalSize = ModalSize;
 
   constructor(private usuarioService: UsuarioService) { }
 
@@ -63,6 +77,24 @@ export class LoginFormComponent implements OnInit {
         q.errors.forEach(e => this.signinForm.controls[e.field].setErrors({message: e.message}));
         swal("Algo deu errado!", q.genericError ? q.genericError : 'Verifique os campos marcados com erro', 'error');
       });
+  }
+
+  esqueciMinhaSenha(){
+    if(this.forgetPasswordForm.pristine){
+      this.forgetPasswordForm.controls.email.markAsDirty();
+      this.forgetPasswordForm.controls.email.setErrors({required: 'required'})
+    }
+    if(!this.forgetPasswordForm.valid)
+      return swal("Algo deu errado!", 'Verifique os campos marcados com erro', 'error');
+    this.usuarioService.forgetPassword(this.forgetPasswordForm.controls['email'].value)
+      .then(p => {
+        swal("Operação realizada com sucesso!", 'A sua senha é ' + p, 'success');
+        this.modalEsqueciMinhaSenha.close();
+      })
+      .catch(r => {
+        r.errors.forEach(e => this.forgetPasswordForm.controls[e.field].setErrors({message: e.message}));
+        swal("Algo deu errado!", r.genericError ? r.genericError : 'Verifique os campos marcados com erro', 'error');
+      })
   }
 
   resetSignupForm() {
@@ -121,7 +153,7 @@ export class LoginFormComponent implements OnInit {
     return control.value.length < 14 ? {message: 'Por favor preencha um telefone válido'} : null;
   }
 
-  esqueciMinhaSenha() : void {
+  openModalEsqueciMinhaSenha() : void {
     this.modalEsqueciMinhaSenha.open();
   }
 }

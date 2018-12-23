@@ -1,5 +1,8 @@
 $error-color: #e53935;
 $success-color: #4caf50;
+$primary-color: #0288d1;
+$warning-color: #fdd835;
+$default-color: #333;
 
 @function highlight($color, $amount, $threshold: 50%){
   @if lightness($color) > $threshold{

@@ -179,6 +179,24 @@ export class UsuarioService {
       });
   }
 
+  forgetPassword(email: string) : Promise<String | RequestError> {
+    this.loaderService.addLoading();
+    const user = this.users.find(u => u.email === email);
+
+    if(!user)
+      return createPromise({errorCode: 400, genericError: null, errors: [{field: 'email', message: 'E-mail não cadastrado'}]}, 2000, true)
+        .catch(u => {
+          this.loaderService.removeLoading();
+          return Promise.reject(u);
+        });
+
+    return createPromise(user.senha, 4000)
+      .then(u => {
+        this.loaderService.removeLoading();
+        return u;
+      })
+  }
+
   signup(user: Usuario) : Promise<Usuario | RequestError> {
     this.loaderService.addLoading();
 
