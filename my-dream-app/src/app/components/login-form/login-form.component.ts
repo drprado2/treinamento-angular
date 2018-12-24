@@ -64,7 +64,7 @@ export class LoginFormComponent implements OnInit {
     {callAction: () => this.esqueciMinhaSenha(), label: 'Confirmar', type: ButtonType.primary},
   ]
 
-  modalSize: ModalSize = ModalSize;
+  modalSize = ModalSize;
 
   constructor(private usuarioService: UsuarioService) { }
 

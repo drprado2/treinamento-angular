@@ -1,0 +1,91 @@
+footer{
+  display: flex;
+  flex-direction: column;
+  background-color: #333;
+  color: #ffffff;
+  margin-top: 40px;
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    padding: 24px 40px;
+
+    .links {
+
+      .links-title {
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+      }
+
+      ul {
+        list-style: none;
+        margin: 0px;
+        padding: 0px;
+
+        li {
+          font-size: 1rem;
+          margin-bottom: 5px;
+          margin-left: 3px;
+          cursor: pointer;
+
+          &:hover{
+            font-weight: bold;
+            transition: all .2s linear;
+          }
+        }
+      }
+    }
+
+    .contact {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex-grow: 0.8;
+
+      .image {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background-size: 100% 100%;
+        background-position: center;
+        background-image: url("https://avatars2.githubusercontent.com/u/15847053?s=400&v=4");
+      }
+      .infos {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        margin-left: 20px;
+
+        div:first-child {
+          margin-bottom: 5px;
+        }
+
+        div:last-child {
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+
+  .copyRight{
+    height: 77px;
+    font-size: 0.8rem;
+    background-color: #555;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    font-weight: bold;
+  }
+}
+
+a, a:hover, a:active, a:focus, a:visited {
+  text-decoration: none;
+  color: inherit;
+  font-weight: inherit;
+}
+
+
+
+

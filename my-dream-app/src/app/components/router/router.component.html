@@ -4,9 +4,17 @@
   ></router-outlet>
 
 <div *ngIf="isAuthenticated">
-  <h1>LOGADOO</h1>
-  <router-outlet
-    (activate)='onActivate($event)'
-    ></router-outlet>
+  <app-app-wrapper>
+    <app-side-nav-menu></app-side-nav-menu>
+    <app-content>
+      <app-header></app-header>
+      <main class="navigation-content">
+        <router-outlet
+          (activate)='onActivate($event)'
+        ></router-outlet>
+      </main>
+      <app-footer></app-footer>
+    </app-content>
+  </app-app-wrapper>
 </div>
 

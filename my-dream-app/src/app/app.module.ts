@@ -27,6 +27,8 @@ import { InputValidationComponent } from './components/input-validation/input-va
 import { LoaderComponent } from './components/loader/loader.component';
 import {RouterComponent} from "./components/router/router.component";
 import { ModalComponent } from './components/modal/modal.component';
+import { SideNavMenuComponent } from './components/side-nav-menu/side-nav-menu.component';
+import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { ModalComponent } from './components/modal/modal.component';
     InputValidationComponent,
     LoaderComponent,
     RouterComponent,
-    ModalComponent
+    ModalComponent,
+    SideNavMenuComponent,
+    AppWrapperComponent
   ],
   imports: [
     BrowserModule,
