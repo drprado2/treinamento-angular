@@ -25,10 +25,11 @@ import { ShowErrorsInputComponent } from './components/show-errors-input/show-er
 import { FullBackgroundVideoComponent } from './components/full-background-video/full-background-video.component';
 import { InputValidationComponent } from './components/input-validation/input-validation.component';
 import { LoaderComponent } from './components/loader/loader.component';
-import {RouterComponent} from "./components/router/router.component";
+import {RouterComponent} from './components/router/router.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { SideNavMenuComponent } from './components/side-nav-menu/side-nav-menu.component';
 import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.component';
+import { CollpaseComponent } from './components/collpase/collpase.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.compon
     RouterComponent,
     ModalComponent,
     SideNavMenuComponent,
-    AppWrapperComponent
+    AppWrapperComponent,
+    CollpaseComponent
   ],
   imports: [
     BrowserModule,
