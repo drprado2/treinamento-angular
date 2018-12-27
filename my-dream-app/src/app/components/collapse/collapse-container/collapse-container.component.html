@@ -1,8 +1,8 @@
-<div class="collapse-container" [ngStyle]="{'height.px': containerHeight}">
-  <div class="header" #header (mouseover)="a(header)">
+<div class="collapse-container" [ngStyle]="{'height.px': containerHeight}" #container>
+  <div class="header" (click)="onHeaderClick()" #header>
     <ng-container [ngTemplateOutlet]="headerTemplate"></ng-container>
   </div>
-  <div class="content" #content (mouseover)="a(content)">
+  <div class="content" #content>
     <ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>
   </div>
 </div>
