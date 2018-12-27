@@ -1,4 +1,4 @@
-import {ButtonType} from "./buttonType.enum";
+import {ButtonType} from './buttonType.enum';
 
 export class ModalButton {
   type: ButtonType;

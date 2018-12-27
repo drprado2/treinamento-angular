@@ -1,0 +1,14 @@
+.collapse-container {
+  overflow: hidden;
+  // transition: height .33s ease-in-out;
+  border: 1px solid black;
+  will-change: height;
+
+  .header {
+
+  }
+
+  .content {
+
+  }
+}

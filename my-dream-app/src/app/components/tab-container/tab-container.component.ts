@@ -14,9 +14,9 @@ import {TabComponent} from "../tab/tab.component";
 })
 export class TabContainerComponent implements OnInit, AfterContentInit {
 
-  @ContentChildren(TabComponent) tabsComponent : QueryList<TabComponent>;
-  private template : any = '';
-  private tabs: TabComponent[] = [];
+  @ContentChildren(TabComponent) tabsComponent: QueryList<TabComponent>;
+  template: any = '';
+  tabs: TabComponent[] = [];
 
   constructor() { }
 

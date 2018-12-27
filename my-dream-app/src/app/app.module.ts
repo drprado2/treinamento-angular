@@ -29,7 +29,9 @@ import {RouterComponent} from './components/router/router.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { SideNavMenuComponent } from './components/side-nav-menu/side-nav-menu.component';
 import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.component';
-import { CollpaseComponent } from './components/collpase/collpase.component';
+import { CollapseContainerComponent } from './components/collapse/collapse-container/collapse-container.component';
+import { CollapseHeaderComponent } from './components/collapse/collapse-header/collapse-header.component';
+import { CollapseContentComponent } from './components/collapse/collapse-content/collapse-content.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { CollpaseComponent } from './components/collpase/collpase.component';
     ModalComponent,
     SideNavMenuComponent,
     AppWrapperComponent,
-    CollpaseComponent
+    CollapseContainerComponent,
+    CollapseHeaderComponent,
+    CollapseContentComponent
   ],
   imports: [
     BrowserModule,
